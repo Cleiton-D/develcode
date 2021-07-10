@@ -34,7 +34,7 @@ public class StorageServiceImpl implements StorageService {
 
   @Override
   public String getFilePath(String filename) {
-    return this.root.resolve(filename).toString();
+    return this.root.resolve(filename).toAbsolutePath().toString();
   }
 
 }
