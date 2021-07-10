@@ -9,13 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 @Entity
 @Table(name = "users")
@@ -66,11 +60,16 @@ public class User {
   }
 
   public String getImage() {
-    return "http://localhost:8080/static/" + image;
+    return image;
   }
 
   public void setImage(String image) {
     this.image = image;
+  }
+
+  @JsonGetter("imagePath")
+  public String getImagePath() {
+    return "http://localhost:8080/static/" + image;
   }
 
 }

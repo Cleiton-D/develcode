@@ -33,6 +33,15 @@ public class StorageServiceImpl implements StorageService {
   }
 
   @Override
+  public void delete(String filename) throws IOException {
+    try {
+      Files.delete(this.root.resolve(filename));
+    } catch (Exception e) {
+      throw new RuntimeException("Could not delete the file. Error: " + e.getMessage());
+    }
+  }
+
+  @Override
   public String getFilePath(String filename) {
     return this.root.resolve(filename).toAbsolutePath().toString();
   }

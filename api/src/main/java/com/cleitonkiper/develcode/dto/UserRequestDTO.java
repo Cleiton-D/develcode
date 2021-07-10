@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.multipart.MultipartFile;
 
-public class CreateUserRequestDTO {
+public class UserRequestDTO {
   private String name;
 
   private String code;

@@ -9,5 +9,7 @@ public interface StorageService {
 
   public void save(MultipartFile file, String filename) throws IOException;
 
+  public void delete(String filename) throws IOException;
+
   public String getFilePath(String filename);
 }
