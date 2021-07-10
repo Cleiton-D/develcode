@@ -9,6 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -22,6 +30,8 @@ public class User {
 
   @Column(name = "birth_date")
   private LocalDate birthDate;
+
+  private String image;
 
   public Long getId() {
     return id;
@@ -53,6 +63,14 @@ public class User {
 
   public void setBirthDate(LocalDate birthDate) {
     this.birthDate = birthDate;
+  }
+
+  public String getImage() {
+    return "http://localhost:8080/static/" + image;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
   }
 
 }
