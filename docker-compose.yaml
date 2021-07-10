@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: develcode
+      POSTGRES_DB: devel
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 15s
+      retries: 5
+    ports:
+      - 5432:5432
+
+    networks:
+      - devel-network
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - devel-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  devel-network:
+    driver: "bridge"
