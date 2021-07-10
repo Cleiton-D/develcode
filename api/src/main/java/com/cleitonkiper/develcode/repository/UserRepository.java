@@ -1,10 +1,9 @@
 package com.cleitonkiper.develcode.repository;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.cleitonkiper.develcode.entity.User;
 
-@Entity
-@Table(name = "users")
-public class UserRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }
