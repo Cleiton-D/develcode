@@ -69,7 +69,8 @@ public class User {
 
   @JsonGetter("imagePath")
   public String getImagePath() {
-    return "http://localhost:8080/static/" + image;
+    String appUrl = System.getenv("APP_URL");
+    return appUrl + "/static/" + image;
   }
 
 }
