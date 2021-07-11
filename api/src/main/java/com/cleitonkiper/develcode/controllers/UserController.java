@@ -2,6 +2,7 @@ package com.cleitonkiper.develcode.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.cleitonkiper.develcode.dto.UserRequestDTO;
@@ -37,8 +38,13 @@ public class UserController {
 
   @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
   public ResponseEntity<User> show(@PathVariable Long id) throws IOException {
-    User user = this.repository.findById(id).get();
-    return ResponseEntity.ok().body(user);
+    Optional<User> userOptional = this.repository.findById(id);
+    if (userOptional.isPresent()) {
+      User user = userOptional.get();
+      return ResponseEntity.ok().body(user);
+    }
+
+    return ResponseEntity.notFound().build();
   }
 
   @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -69,12 +75,16 @@ public class UserController {
   @PutMapping(value = "/{id}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }, produces = {
       MediaType.APPLICATION_JSON_VALUE })
   public ResponseEntity<User> update(@PathVariable Long id, @ModelAttribute UserRequestDTO data) throws IOException {
-    User user = this.repository.findById(id).get();
+    Optional<User> userOptional = this.repository.findById(id);
+    if (userOptional.isPresent() == false) {
+      return ResponseEntity.notFound().build();
+    }
+
+    User user = userOptional.get();
     User newUser = new User();
     newUser.setName(data.getName());
     newUser.setCode(data.getCode());
     newUser.setBirthDate(data.getBirthDate());
-
     this.repository.save(user);
 
     return ResponseEntity.ok().body(user);
@@ -84,7 +94,12 @@ public class UserController {
       MediaType.APPLICATION_JSON_VALUE })
   public ResponseEntity<User> updateImage(@PathVariable Long id, @RequestParam("image") MultipartFile image)
       throws IOException {
-    User user = this.repository.findById(id).get();
+    Optional<User> userOptional = this.repository.findById(id);
+    if (userOptional.isPresent() == false) {
+      return ResponseEntity.notFound().build();
+    }
+
+    User user = userOptional.get();
 
     String fileExtension = FilenameUtils.getExtension(image.getOriginalFilename());
     String filename = UUID.randomUUID().toString() + "." + fileExtension;
@@ -100,7 +115,12 @@ public class UserController {
 
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> delete(@PathVariable Long id) throws IOException {
-    User user = this.repository.findById(id).get();
+    Optional<User> userOptional = this.repository.findById(id);
+    if (userOptional.isPresent() == false) {
+      return ResponseEntity.notFound().build();
+    }
+
+    User user = userOptional.get();
 
     this.storageService.delete(user.getImage());
     this.repository.delete(user);
