@@ -1,6 +1,7 @@
 package com.cleitonkiper.develcode.controllers;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import com.cleitonkiper.develcode.dto.UserRequestDTO;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +34,18 @@ public class UserController {
 
   @Autowired
   StorageService storageService;
+
+  @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
+  public ResponseEntity<User> show(@PathVariable Long id) throws IOException {
+    User user = this.repository.findById(id).get();
+    return ResponseEntity.ok().body(user);
+  }
+
+  @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
+  public ResponseEntity<List<User>> index() throws IOException {
+    List<User> users = this.repository.findAll();
+    return ResponseEntity.ok().body(users);
+  }
 
   @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
   public ResponseEntity<User> create(@ModelAttribute UserRequestDTO data) throws IOException {
