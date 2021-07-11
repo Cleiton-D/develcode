@@ -1,30 +1,42 @@
+import { useListUsers } from 'requests/queries/users';
+
 import * as S from './styles';
 
 const Dashboard = () => {
+  const { data: users } = useListUsers();
+
   return (
     <S.Wrapper>
       <S.PageTitle>Usuários</S.PageTitle>
       <S.Content>
-        <table>
-          <S.TableHeader>
-            <tr>
-              <th>Imagem</th>
-              <th>Nome</th>
-              <th>Código</th>
-              <th>Data de Nascimento</th>
-            </tr>
-          </S.TableHeader>
-          <tbody>
-            <tr>
-              <S.TableCell noPadding>
-                <S.UserImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREfizvjqR1olIw9jrmi_dBRNhEKoR2E-6o2A&usqp=CAU" />
-              </S.TableCell>
-              <S.TableCell>Cleitin</S.TableCell>
-              <S.TableCell>Teste</S.TableCell>
-              <S.TableCell>04/11/1999</S.TableCell>
-            </tr>
-          </tbody>
-        </table>
+        {users && users.length > 0 ? (
+          <table>
+            <S.TableHeader>
+              <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Código</th>
+                <th>Data de Nascimento</th>
+                <th>Ações</th>
+              </tr>
+            </S.TableHeader>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <S.TableCell noPadding>
+                    <S.UserImage imageSrc={user.imagePath} />
+                  </S.TableCell>
+                  <S.TableCell>{user.name}</S.TableCell>
+                  <S.TableCell>{user.code}</S.TableCell>
+                  <S.TableCell>{user.formattedBirthDate}</S.TableCell>
+                  <S.TableCell></S.TableCell>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <S.Message>Nenhum usuário encontrado</S.Message>
+        )}
       </S.Content>
     </S.Wrapper>
   );

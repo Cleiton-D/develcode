@@ -91,15 +91,31 @@ export const TableCell = styled.td<TableCellProps>`
 `;
 
 type UserImageProps = {
-  src: string;
+  imageSrc: string;
 };
-export const UserImage = styled.div<UserImageProps>`
-  ${({ src }) => css`
-    background: url(${src}) no-repeat center;
+export const UserImage = styled.div.attrs({
+  role: 'image'
+})<UserImageProps>`
+  ${({ imageSrc }) => css`
+    background: url(${imageSrc}) no-repeat center;
     background-size: cover;
     height: 4rem;
     width: 4rem;
     border-radius: 50%;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  `}
+`;
+
+export const Message = styled.p`
+  ${({ theme }) => css`
+    display: block;
+    margin: 2rem auto;
+    width: fit-content;
+    text-align: center;
+    padding: 0 1.5rem;
+
+    font-size: ${theme.font.sizes.large};
+    color: ${theme.colors.lightSilver};
+    font-weight: ${theme.font.medium};
   `}
 `;
