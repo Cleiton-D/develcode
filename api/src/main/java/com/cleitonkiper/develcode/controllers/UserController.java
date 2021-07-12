@@ -81,10 +81,9 @@ public class UserController {
     }
 
     User user = userOptional.get();
-    User newUser = new User();
-    newUser.setName(data.getName());
-    newUser.setCode(data.getCode());
-    newUser.setBirthDate(data.getBirthDate());
+    user.setName(data.getName());
+    user.setCode(data.getCode());
+    user.setBirthDate(data.getBirthDate());
     this.repository.save(user);
 
     return ResponseEntity.ok().body(user);
