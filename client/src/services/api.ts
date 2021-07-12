@@ -13,13 +13,13 @@ const api = axios.create({
 
 type UseMutationOptions = {
   linkedQueries?: string[];
-  renderError?: (data: any) => ToastContent;
-  renderSuccess?: (data: any) => ToastContent;
+  renderError?: (data: unknown) => ToastContent;
+  renderSuccess?: (data: unknown) => ToastContent;
 };
 
-export function useMutation(
+export function useMutation<TData = unknown, TVariables = unknown>(
   key: string,
-  mutationFn: MutationFunction<any, any>,
+  mutationFn: MutationFunction<TData, TVariables>,
   options: UseMutationOptions = {}
 ) {
   const queryClient = useQueryClient();
