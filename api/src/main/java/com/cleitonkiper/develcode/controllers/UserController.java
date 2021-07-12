@@ -84,6 +84,22 @@ public class UserController {
     user.setName(data.getName());
     user.setCode(data.getCode());
     user.setBirthDate(data.getBirthDate());
+
+    if (data.getImage() != null) {
+      MultipartFile image = data.getImage();
+
+      String fileExtension = FilenameUtils.getExtension(image.getOriginalFilename());
+      String filename = UUID.randomUUID().toString() + "." + fileExtension;
+
+      this.storageService.save(image, filename);
+
+      if (user.getImage() != null) {
+        this.storageService.delete(user.getImage());
+      }
+
+      user.setImage(filename);
+    }
+
     this.repository.save(user);
 
     return ResponseEntity.ok().body(user);
