@@ -1,6 +1,9 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { QueryClientProvider } from 'react-query';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import Routes from 'routes';
 
@@ -17,6 +20,7 @@ const App = () => {
           <Routes />
           <GlobalStyles />
         </QueryClientProvider>
+        <ToastContainer />
       </ThemeProvider>
     </Router>
   );

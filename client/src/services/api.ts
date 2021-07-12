@@ -27,18 +27,14 @@ export function useMutation(
   return useReactQueryMutation(key, mutationFn, {
     onError: (err, data) => {
       if (options.renderError) {
-        toast({
-          type: toast.TYPE.ERROR,
-          render: options.renderError(data),
+        toast.error(options.renderError(data), {
           autoClose: 3000
         });
       }
     },
     onSuccess: (_, data) => {
       if (options.renderSuccess) {
-        toast({
-          type: toast.TYPE.SUCCESS,
-          render: options.renderSuccess(data),
+        toast.success(options.renderSuccess(data), {
           autoClose: 3000
         });
       }
