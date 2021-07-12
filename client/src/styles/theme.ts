@@ -18,14 +18,12 @@ export default {
     }
   },
   colors: {
-    primary: '#0393BE',
-    secondary: '#0DBF87',
-    mainBg: '#F8FAFA',
+    primary: '#3AA8E8',
+    secondary: '#4d8fff',
+    mainBg: '#f2f5fc',
     white: '#ffffff',
     black: '#13110C',
-    lightGray: '#BFC1C2',
     gray: '#717273',
-    yellow: '#F4DA85',
     red: '#EE4C4C',
     silver: '#556365',
     lightSilver: '#97AEB1'

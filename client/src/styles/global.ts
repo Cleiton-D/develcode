@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 export default createGlobalStyle`
   @font-face {
@@ -71,11 +71,14 @@ export default createGlobalStyle`
     font-size: 62.5%;
   }
   body {
-    font-family: Poppins, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.6rem;
-    height: 100vh;
-    width: 100vw;
-    background-color: #F8FAFA;
+    ${({ theme }) => css`
+      font-family: ${theme.font.poppins};
+      font-size: 1.6rem;
+      height: 100vh;
+      width: 100vw;
+      background-color: ${theme.colors.mainBg};
+    `}
+
   }
   button {
     cursor: pointer;
