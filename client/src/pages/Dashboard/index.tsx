@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Edit3 } from '@styled-icons/feather';
 
 import UserModal, { UserModalRef } from 'components/UserModal';
 
@@ -39,7 +40,14 @@ const Dashboard = () => {
                     <S.TableCell>{user.name}</S.TableCell>
                     <S.TableCell>{user.code}</S.TableCell>
                     <S.TableCell>{user.formattedBirthDate}</S.TableCell>
-                    <S.TableCell></S.TableCell>
+                    <S.TableCell>
+                      <S.ActionButton
+                        color="primary"
+                        onClick={() => modalRef.current?.openModal(user)}
+                      >
+                        <Edit3 size={20} />
+                      </S.ActionButton>
+                    </S.TableCell>
                   </tr>
                 ))}
               </tbody>

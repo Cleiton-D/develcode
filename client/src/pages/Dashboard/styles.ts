@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
 import { darken } from 'polished';
 
 import { generateMedia } from 'styled-media-query';
@@ -117,5 +117,29 @@ export const Message = styled.p`
     font-size: ${theme.font.sizes.large};
     color: ${theme.colors.lightSilver};
     font-weight: ${theme.font.medium};
+  `}
+`;
+
+type ActionButtonProps = {
+  color: keyof DefaultTheme['colors'];
+};
+
+export const ActionButton = styled.button<ActionButtonProps>`
+  ${({ theme, color }) => css`
+    background: ${theme.colors.white};
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 3rem;
+    border: 0;
+    outline: 0;
+    stroke-width: 2;
+    color: ${theme.colors[color]};
+    padding: 0.4rem;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: ${darken(0.05, theme.colors.white)};
+    }
   `}
 `;
