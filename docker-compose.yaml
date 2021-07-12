@@ -36,6 +36,13 @@ services:
       postgres:
         condition: service_healthy
 
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+
 networks:
   devel-network:
     driver: "bridge"
