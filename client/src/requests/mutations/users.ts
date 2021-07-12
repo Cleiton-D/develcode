@@ -13,13 +13,25 @@ export const mutateUser = ({ id, data }: MutateUserProps) => {
   return api.post(`/users`, data).then((response) => response.data);
 };
 
-type UseMutateUserOptions = {
+type MutateUserOptions = {
   queries?: string[];
 };
-export const useMutateUser = (options: UseMutateUserOptions) => {
+export const useMutateUser = (options: MutateUserOptions) => {
   return useMutation('mutate-user', mutateUser, {
     linkedQueries: options.queries,
     renderError: () => 'Não foi possível salvar as alterações',
     renderSuccess: () => 'Alterações realizadas com sucesso'
+  });
+};
+
+export const deleteUser = (id: number) => {
+  return api.delete(`/users/${id}`).then((response) => response.data);
+};
+
+export const useDeleteUser = (options: MutateUserOptions) => {
+  return useMutation('delete-user', deleteUser, {
+    linkedQueries: options.queries,
+    renderError: () => 'Não foi possível apagar o usuário',
+    renderSuccess: () => 'Usuário apagado com sucesso'
   });
 };

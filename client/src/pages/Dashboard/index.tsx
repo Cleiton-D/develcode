@@ -1,9 +1,12 @@
 import { useRef } from 'react';
-import { Edit3 } from '@styled-icons/feather';
+import { Edit3, X } from '@styled-icons/feather';
 
 import UserModal, { UserModalRef } from 'components/UserModal';
 
+import { FormattedUser } from 'models/User';
+
 import { useListUsers } from 'requests/queries/users';
+import { useDeleteUser } from 'requests/mutations/users';
 
 import * as S from './styles';
 
@@ -11,6 +14,14 @@ const Dashboard = () => {
   const modalRef = useRef<UserModalRef>(null);
 
   const { data: users, key } = useListUsers();
+  const deleteUser = useDeleteUser({ queries: [key] });
+
+  const handleDelete = (user: FormattedUser) => {
+    const confirm = window.confirm(`Deseja apagar o usuário ${user.name}?`);
+    if (confirm) {
+      deleteUser.mutate(user.id);
+    }
+  };
 
   return (
     <>
@@ -46,6 +57,12 @@ const Dashboard = () => {
                         onClick={() => modalRef.current?.openModal(user)}
                       >
                         <Edit3 size={20} />
+                      </S.ActionButton>
+                      <S.ActionButton
+                        color="red"
+                        onClick={() => handleDelete(user)}
+                      >
+                        <X size={20} />
                       </S.ActionButton>
                     </S.TableCell>
                   </tr>
