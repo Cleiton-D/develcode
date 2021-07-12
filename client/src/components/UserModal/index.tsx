@@ -83,6 +83,7 @@ const UserModal: React.ForwardRefRenderFunction<UserModalRef, UserModalProps> =
                     label="Data de nascimento"
                     placeholder="Infome a data de nascimento do usuário"
                     defaultValue={user?.formattedBirthDate}
+                    mask="date"
                     required
                   />
                 </div>
