@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Edit3, X } from '@styled-icons/feather';
+import { Edit3, X, PlusCircle } from '@styled-icons/feather';
 
 import UserModal, { UserModalRef } from 'components/UserModal';
 
@@ -9,6 +9,7 @@ import { useListUsers } from 'requests/queries/users';
 import { useDeleteUser } from 'requests/mutations/users';
 
 import * as S from './styles';
+import Button from 'components/Button';
 
 const Dashboard = () => {
   const modalRef = useRef<UserModalRef>(null);
@@ -27,9 +28,11 @@ const Dashboard = () => {
     <>
       <S.Wrapper>
         <S.PageTitle>Usuários</S.PageTitle>
-        <button type="button" onClick={() => modalRef.current?.openModal()}>
-          adicionar
-        </button>
+        <S.AddButtonContainer>
+          <Button type="button" onClick={() => modalRef.current?.openModal()}>
+            <PlusCircle size={20} style={{ strokeWidth: 2 }} /> adicionar
+          </Button>
+        </S.AddButtonContainer>
         <S.Content>
           {users && users.length > 0 ? (
             <table>

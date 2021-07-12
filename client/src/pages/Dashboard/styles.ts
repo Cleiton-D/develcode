@@ -31,20 +31,26 @@ export const Wrapper = styled.main`
 `;
 
 export const PageTitle = styled.h1`
-  margin-top: 5rem;
+  ${({ theme }) => css`
+    margin-top: ${theme.spacings.large};
+    color: ${theme.colors.secondary};
+  `}
 `;
 
 export const Content = styled.section`
-  background: white;
-  max-width: 100%;
-  width: 100%;
-  border-radius: 1rem;
+  ${({ theme }) => css`
+    background: white;
+    max-width: 100%;
+    width: 100%;
+    border-radius: 1rem;
+    margin-top: ${theme.spacings.small};
 
-  > table {
-    border-collapse: collapse;
-    width: inherit;
-    border-spacing: 0;
-  }
+    > table {
+      border-collapse: collapse;
+      width: inherit;
+      border-spacing: 0;
+    }
+  `}
 `;
 
 export const TableHeader = styled.thead`
@@ -142,4 +148,9 @@ export const ActionButton = styled.button<ActionButtonProps>`
       background: ${darken(0.05, theme.colors.white)};
     }
   `}
+`;
+
+export const AddButtonContainer = styled.div`
+  width: 20rem;
+  align-self: flex-end;
 `;
